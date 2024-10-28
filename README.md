@@ -26,7 +26,7 @@ Follow these steps to run this code locally on your PC
 - **Prepare your dataset:** ensure your point cloud dataset files are .csv files with four columns: 'x', 'y', 'z', 'label' to be properly loaded by utils/dataset.py. Enter the path to your dataset files under "root" in config.yaml
 - **Setup wandb logging:** enter your api-key, project-name and run-name in a config.yaml file (this will enable you to log your model performance metrics onto an online wandb account for every epoch of training)
 - _Alternatively, remove all wandb logging code before running train.py_
-- **Run train.py:** contains example code used to train DGCNN model on a point cloud dataset (NOT INCLUDED IN REPOSITORY). trained_model.pth will be saved in /outputs/trained_models (USE THE SAME DIRECTORY STRUCTURE AS example_outputs)
+- **Run train.py:** contains example code used to train DGCNN model on a point cloud dataset (NOT INCLUDED IN REPOSITORY). trained_model.pth will be saved in /outputs/trained_models
 - **Run post_processing.py:** contains post-processing code that will load your trained_model.pth file, run model predictions on a test dataset, and filter the model predictions using the k-regular graphs produced by DGCNN.
 - **Outputs:** The filtered point cloud arrays, interactive point cloud plots, confusion matrices, and k-regular graph plot will all be saved into their respective subdirectory within /outputs
 
