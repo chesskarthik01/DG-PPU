@@ -1,0 +1,6 @@
+wandb:
+  api_key: "YOUR_API_KEY"
+  project_name: "YOUR_PROJECT_NAME"
+  run_name: "WANDB_RUN_NAME"
+
+root: "PATH_TO_DATASET_FILES_FROM_BASE"

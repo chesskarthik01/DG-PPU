@@ -1,0 +1,19 @@
+data/
+old code/
+outputs/
+├── confusion_matrices/
+│   └── .gitkeep
+├── graphs/
+│   └── .gitkeep
+├── point_clouds/
+│   └── .gitkeep
+└── trained_models/
+    └── .gitkeep
+wandb/
+__pycache__/
+*.pyc
+logs/
+further_testing.py
+further_training.py
+config.yaml
+Screenshot.png
