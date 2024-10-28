@@ -4,7 +4,7 @@
 
 This repository contains the code to train a custom DGCNN segmentation model on 3D point cloud data and carry out post-processing to filter these point clouds from the k-regular graphs produced by the model.
 
-![Example DG-PPU output](Screenshot.png)
+![Example DG-PPU Output](example_screenshot.png)
 
 For further information, please contact [Karthik Saravanan](mailto:karthik.saravanan@queens.ox.ac.uk) and [Injune Hwang](mailto:injune.hwang.geo37@gmail.com)
 
