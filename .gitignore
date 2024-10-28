@@ -1,18 +1,20 @@
+# Ignore everything in these directories
 data/
 old code/
-outputs/
-├── confusion_matrices/
-│   └── .gitkeep
-├── graphs/
-│   └── .gitkeep
-├── point_clouds/
-│   └── .gitkeep
-└── trained_models/
-    └── .gitkeep
 wandb/
 __pycache__/
-*.pyc
 logs/
+outputs/
+
+# Ignore all files in 'outputs' subdirectories, but allow .gitkeep files
+outputs/*/*
+!outputs/confusion_matrices/.gitkeep
+!outputs/graphs/.gitkeep
+!outputs/point_clouds/.gitkeep
+!outputs/trained_models/.gitkeep
+
+# Ignore specific file types and individual files
+*.pyc
 further_testing.py
 further_training.py
 config.yaml
