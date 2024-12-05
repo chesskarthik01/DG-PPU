@@ -1,5 +1,6 @@
 import torch
 import numpy as np
+import h5py
 
 
 def filter_point_cloud(pos, labels, knn_graphs, k=20, verbose=False):
@@ -53,20 +54,32 @@ def filter_point_cloud(pos, labels, knn_graphs, k=20, verbose=False):
     return filtered_pos, filtered_labels, keep_indices
 
 
-def save_filtered_point_cloud(filtered_pos, filtered_labels, output_path):
+def save_filtered_point_cloud_h5(filtered_pos, filtered_labels, output_path, num_points=1024):
     """
-    Save the filtered point cloud and labels to an .npz file.
+    Save the filtered point clouds and labels to an HDF5 file in a format compatible with DCP's DGCNN.
 
     Args:
-        filtered_pos (torch.Tensor): Filtered point cloud coordinates.
-        filtered_labels (torch.Tensor): Filtered point cloud labels.
-        output_path (str): Path to save the filtered point cloud (.npz file).
+        filtered_pos (torch.Tensor): Filtered point cloud coordinates (num_filtered_points, 3).
+        filtered_labels (torch.Tensor): Filtered labels (num_filtered_points,).
+        output_path (str): Path to save the filtered point clouds (.h5 file).
+        num_points (int): Number of points per point cloud (default: 1024).
     """
-    # Convert tensors to numpy arrays
+    # Ensure the data is on CPU
     filtered_pos_np = filtered_pos.cpu().numpy()
     filtered_labels_np = filtered_labels.cpu().numpy()
 
-    # Save data as an .npz file
-    np.savez_compressed(output_path, positions=filtered_pos_np,
-                        labels=filtered_labels_np)
-    print(f"Filtered point cloud saved to {output_path}.npz")
+    # Create batches of fixed size (num_points) for compatibility with the DCP DGCNN model
+    num_samples = len(filtered_pos_np) // num_points
+    reshaped_pos = filtered_pos_np[:num_samples *
+                                   num_points].reshape(num_samples, num_points, 3)
+    reshaped_labels = filtered_labels_np[:num_samples *
+                                         num_points].reshape(num_samples, num_points)
+
+    # Save to HDF5 file in the correct format
+    with h5py.File(output_path, 'w') as f:
+        f.create_dataset('data', data=reshaped_pos.astype(
+            'float32'))  # Point clouds
+        f.create_dataset('label', data=reshaped_labels[:, 0].astype(
+            'int64'))  # Labels (1 per cloud)
+
+    print(f"Filtered point clouds saved to {output_path} in HDF5 format.")

@@ -5,7 +5,7 @@ from torch_geometric.loader import DataLoader
 from torch.utils.data import random_split
 from models.dgcnn import DGCNNWithKNN
 from utils.dataset import CATMAUS
-from utils.filter_knn_graphs import filter_point_cloud, save_filtered_point_cloud
+from utils.filter_knn_graphs import filter_point_cloud, save_filtered_point_cloud_h5
 from utils.plot_knn_graph_comparison import plot_knn_graphs_side_by_side
 from utils.plot_confusion_matrices import log_confusion_matrices
 from utils.plot_graph_edges import plot_knn_2d_graph
@@ -187,8 +187,8 @@ def main(verbose=True):
         model, test_loader, verbose=verbose)
 
     # Save the filtered point clouds to a .npz file for future use
-    output_path = 'outputs/point_clouds/test_filtered_point_clouds'
-    save_filtered_point_cloud(torch.tensor(
+    output_path = 'outputs/point_clouds/test_filtered_point_clouds.h5'
+    save_filtered_point_cloud_h5(torch.tensor(
         filtered_pos), torch.tensor(filtered_labels), output_path)
 
     # Plot the ground truth point clouds
